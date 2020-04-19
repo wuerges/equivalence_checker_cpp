@@ -11,7 +11,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native")
 
 
 project(EQUIV_CHECK)
-include_directories("include")
 add_library(Lib src/lib.cxx)
 target_include_directories(Lib PUBLIC include)
 
