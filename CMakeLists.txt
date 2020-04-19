@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.0)
 set (CMAKE_CXX_STANDARD 17)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -11,8 +11,9 @@ set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native")
 
 
 project(EQUIV_CHECK)
-# add_subdirectory("ext-libs/rapidcheck")
-add_subdirectory("src")
+include_directories("include")
+add_library(Lib src/lib.cxx)
+target_include_directories(Lib PUBLIC include)
 
 enable_testing()
 add_subdirectory("test")
