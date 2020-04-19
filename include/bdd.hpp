@@ -59,4 +59,12 @@ struct BDD {
 
         return z;
     }
+
+    int _not_(int x) {
+        int z = index++;
+        adjacency[z].var = adjacency[x].var;
+        adjacency[z].pos = adjacency[x].neg;
+        adjacency[z].neg = adjacency[x].pos;
+        return z;
+    }
 };
