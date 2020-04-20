@@ -61,10 +61,17 @@ struct BDD {
     }
 
     int _not_(int x) {
+        if(x==0) {
+            return 1;
+        }
+        if(x==1) {
+            return 0;
+        }
+
         int z = index++;
         adjacency[z].var = adjacency[x].var;
-        adjacency[z].pos = adjacency[x].neg;
-        adjacency[z].neg = adjacency[x].pos;
+        adjacency[z].pos = _not_(adjacency[x].pos);
+        adjacency[z].neg = _not_(adjacency[x].neg);
         return z;
     }
 };
