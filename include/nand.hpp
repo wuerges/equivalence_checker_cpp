@@ -33,12 +33,14 @@ struct Nand {
         }
         return out;
     }
+    int _not_(int x) {
+        int out = new_vertex();
+        adjacency[x].emplace_back(false, out);
+        return out;
+    }
 
     int _nand_(const vector<int> & inputs) {
-        int out = new_vertex();
-        int aux = _and_(inputs);
-        adjacency[aux].emplace_back(false, out);
-        return out;
+        return _not_(_and_(inputs));
     }
 
     int _nor_(const vector<int> & inputs) {
@@ -50,10 +52,22 @@ struct Nand {
     }
 
     int _or_(const vector<int> & inputs) {
-        int out = new_vertex();
-        int aux = _nor_(inputs);
-        adjacency[aux].emplace_back(false, out);
-        return out;
+        return _not_(_nor_(inputs));
+    }
+
+
+    int _xor2_(int x, int y) {
+        int aux1 = _or_({x, y});
+        int aux2 = _nand_({x, y});
+        return _and_({x, y});
+    }
+
+    int _xor_(const vector<int> & inputs) {
+        int x = inputs[0];
+        for(int i = 1; i < inputs.size(); ++i) {
+            x = _xor2_(x, inputs[i]);
+        }
+        return x;
     }
 
 };
